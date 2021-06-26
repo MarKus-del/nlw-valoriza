@@ -13,7 +13,21 @@ class ListUserSendComplimentsService {
       relations: ["userSender", "userReceiver", "tag"],
     });
 
-    return compliments;
+    const complimentsFormated = compliments.map((compliment => {
+      delete compliment.tag_id;
+      delete compliment.user_receiver;
+      delete compliment.user_sender;
+
+      delete compliment.userSender.password
+      delete compliment.userSender.admin
+      
+      delete compliment.userReceiver.password
+      delete compliment.userReceiver.admin
+
+      return {...compliment};
+    }));
+
+    return complimentsFormated;
   }
 };
 
